@@ -4,8 +4,9 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "node scripts/content.mjs --check && vite",
+    "content:sync": "node scripts/content.mjs",
+    "build": "npm run content:sync && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -19,13 +20,13 @@
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.3",
     "remark-frontmatter": "^5.0.0",
-    "remark-mdx-frontmatter": "^5.2.0",
     "tailwindcss": "^4.3.3",
-    "vite": "^8.2.2",
-    "typescript": "~6.0.2"
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@mdx-js/mdx": "3.1.1",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
