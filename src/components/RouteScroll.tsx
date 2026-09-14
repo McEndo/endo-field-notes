@@ -8,7 +8,9 @@ const RouteScroll = () => {
     // Wait until the destination page and menu scroll-lock effects have settled.
     const frame = window.requestAnimationFrame(() => {
       if (location.hash) {
-        document.getElementById(location.hash.slice(1))?.scrollIntoView()
+        let id = location.hash.slice(1)
+        try { id = decodeURIComponent(id) } catch { /* Keep malformed external hashes harmless. */ }
+        document.getElementById(id)?.scrollIntoView()
       } else {
         window.scrollTo({ top: 0, behavior: 'instant' })
       }

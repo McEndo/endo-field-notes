@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { notes } from '../lib/notes'
+import TableOfContents from './TableOfContents'
 
 const Writeup = () => {
   const { slug } = useParams()
@@ -44,9 +45,12 @@ const Writeup = () => {
           )}
         </motion.header>
 
-        <article className="note-content pt-8">
-          <Content />
-        </article>
+        <div className="relative">
+          <TableOfContents key={note.slug} entries={note.toc} />
+          <article className="note-content pt-8">
+            <Content />
+          </article>
+        </div>
       </div>
     </main>
   )
