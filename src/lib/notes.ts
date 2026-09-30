@@ -2,11 +2,12 @@ import type { ComponentType } from 'react'
 import type { TocEntry } from '../components/TableOfContents'
 import metadata from '../../.content/current/metadata.json'
 
-export type Note = {
+export type ContentEntry = {
   slug: string
   title: string
   description: string
   category: string
+  type: 'writeup' | 'note'
   date: string
   status: 'published' | 'draft'
   component: ComponentType
@@ -23,12 +24,12 @@ const modules = import.meta.glob<NoteModule>(
   { eager: true },
 )
 
-export const notes: Note[] = (metadata as Omit<Note, 'component' | 'toc'>[])
-  .map((note): Note => {
-    const module = modules[`../../.content/current/notes/${note.slug}.md`]
-    if (!module || note.status !== 'published') {
-      throw new Error(`Invalid prepared content for ${note.slug}. Run npm run content:sync.`)
+export const entries: ContentEntry[] = (metadata as Omit<ContentEntry, 'component' | 'toc'>[])
+  .map((entry): ContentEntry => {
+    const module = modules[`../../.content/current/notes/${entry.slug}.md`]
+    if (!module || entry.status !== 'published') {
+      throw new Error(`Invalid prepared content for ${entry.slug}. Run npm run content:sync.`)
     }
-    return { ...note, status: 'published', component: module.default, toc: module.toc }
+    return { ...entry, status: 'published', component: module.default, toc: module.toc }
   })
   .sort((a, b) => b.date.localeCompare(a.date))

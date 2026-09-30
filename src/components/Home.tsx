@@ -1,7 +1,8 @@
 import { motion } from 'motion/react'
 import { Link } from 'react-router-dom'
 import Reveal from './Reveal'
-import { notes } from '../lib/notes'
+import ContentList from './ContentList'
+import { entries } from '../lib/notes'
 
 const Home = () => (
   <main>
@@ -12,51 +13,31 @@ const Home = () => (
         <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .2 }} className="max-w-5xl text-[clamp(4rem,13vw,9rem)] font-medium leading-[.82] tracking-[-.07em]">FIELD<br className="sm:hidden" /> NOTES</motion.h1>
         <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .45 }} className="mt-8 max-w-xl text-sm leading-7 text-white/45 sm:text-base">A record of hands-on labs, security concepts, projects, technical experiments, and things learned along the way.</motion.p>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .55 }} className="mt-10 flex items-center gap-8">
-          <Link to="/#notes" className="border border-white/30 px-6 py-3.5 text-[9px] tracking-[.2em] text-white/70 transition hover:border-white hover:bg-white hover:text-black sm:px-7 sm:py-4 sm:text-[10px]">BROWSE NOTES <span className="ml-5">→</span></Link>
+          <Link to="/#recent" className="border border-white/30 px-6 py-3.5 text-[9px] tracking-[.2em] text-white/70 transition hover:border-white hover:bg-white hover:text-black sm:px-7 sm:py-4 sm:text-[10px]">BROWSE CONTENT <span className="ml-5">→</span></Link>
           <a href="https://endo-portfolio-test.netlify.app/" className="border-b border-sky-400 pb-2 text-[9px] tracking-[.2em] text-white/60 transition hover:text-white sm:text-[10px]">MAIN PORTFOLIO</a>
         </motion.div>
       </div>
     </section>
 
-    <section id="notes" className="border-b border-white/10 bg-[#080808]">
+    <section id="recent" className="border-b border-white/10 bg-[#080808]">
       <div className="mx-auto max-w-7xl px-8 py-20 sm:py-28 md:py-32">
         <Reveal>
           <div className="mb-14 flex items-start gap-5 sm:mb-16 sm:gap-6">
             <span className="font-mono text-sm text-sky-400">01</span>
-            <div><p className="text-[10px] tracking-[.3em] text-white/40 sm:text-xs">ARCHIVE</p><h2 className="mt-4 text-4xl font-medium leading-none tracking-[-.03em] sm:text-5xl md:text-6xl">NOTES</h2></div>
+            <div><p className="text-[10px] tracking-[.3em] text-white/40 sm:text-xs">LATEST FROM THE ARCHIVE</p><h2 className="mt-4 text-4xl font-medium leading-none tracking-[-.03em] sm:text-5xl md:text-6xl">RECENT CONTENT</h2></div>
           </div>
         </Reveal>
         <Reveal delay={.08}>
-          <div className="border-t border-white/10">
-            {notes.length === 0 ? (
-              <div className="flex flex-col gap-4 py-10 sm:flex-row sm:items-center sm:justify-between">
-                <div><p className="font-mono text-[9px] tracking-[.2em] text-sky-400">NO PUBLISHED NOTES YET</p><p className="mt-4 max-w-xl text-sm leading-7 text-white/35">This archive will grow from real labs, challenges, projects, and experiments. Nothing is presented as completed until it has actually been done and documented.</p></div>
-                <span className="font-mono text-[9px] tracking-[.15em] text-white/20">BUILDING</span>
-              </div>
-            ) : (
-              <div>
-                {notes.map((note, index) => (
-                  <Link
-                    key={note.slug}
-                    to={`/notes/${note.slug}`}
-                    className="group flex flex-col gap-4 border-b border-white/10 py-8 transition hover:bg-white/[.02] sm:flex-row sm:items-center sm:justify-between sm:px-4"
-                  >
-                    <div className="flex items-start gap-5">
-                      <span className="font-mono text-[9px] tracking-[.15em] text-white/20">{String(index + 1).padStart(2, '0')}</span>
-                      <div>
-                        <h3 className="text-sm font-medium tracking-[.05em] text-white sm:text-base">{note.title}</h3>
-                        <p className="mt-2 text-sm leading-6 text-white/30">{note.description}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 pl-7 sm:pl-0">
-                      <span className="font-mono text-[9px] tracking-[.15em] text-sky-400">{note.category}</span>
-                      <span className="font-mono text-[9px] tracking-[.15em] text-white/20">{note.date}</span>
-                      <span className="text-white/20 transition group-hover:translate-x-1 group-hover:text-white">→</span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
+          <div>
+            <ContentList
+              entries={entries}
+              emptyLabel="NO PUBLISHED CONTENT YET"
+              emptyDescription="This archive will grow from real labs, projects, research, and experiments. Nothing is presented as completed until it has actually been done and documented."
+            />
+            <div className="mt-10 flex flex-wrap gap-x-8 gap-y-4 font-mono text-[9px] tracking-[.2em]">
+              <Link to="/writeups" className="border-b border-white/20 pb-2 text-white/45 transition hover:border-sky-400 hover:text-white">ALL WRITEUPS →</Link>
+              <Link to="/notes" className="border-b border-white/20 pb-2 text-white/45 transition hover:border-sky-400 hover:text-white">ALL NOTES →</Link>
+            </div>
           </div>
         </Reveal>
       </div>

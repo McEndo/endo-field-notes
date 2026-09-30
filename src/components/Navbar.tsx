@@ -96,7 +96,14 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/#notes"
+              to="/writeups"
+              className="transition hover:text-white"
+            >
+              WRITEUPS
+            </Link>
+
+            <Link
+              to="/notes"
               className="transition hover:text-white"
             >
               NOTES
@@ -108,13 +115,6 @@ const Navbar = () => {
             >
               ABOUT
             </Link>
-
-            <a
-              href="https://endo-portfolio-test.netlify.app/"
-              className="transition hover:text-white"
-            >
-              PORTFOLIO
-            </a>
 
           </div>
 
@@ -152,7 +152,15 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/#notes"
+              to="/writeups"
+              onClick={closeMenu}
+              className="text-4xl font-medium tracking-[-0.04em] text-white transition"
+            >
+              WRITEUPS
+            </Link>
+
+            <Link
+              to="/notes"
               onClick={closeMenu}
               className="text-4xl font-medium tracking-[-0.04em] text-white transition"
             >
@@ -166,14 +174,6 @@ const Navbar = () => {
             >
               ABOUT
             </Link>
-
-            <a
-              href="https://endo-portfolio-test.netlify.app/"
-              onClick={closeMenu}
-              className="text-4xl font-medium tracking-[-0.04em] text-white transition"
-            >
-              PORTFOLIO
-            </a>
 
           </div>
 

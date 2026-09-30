@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-import Writeup from './components/Writeup'
+import Archive from './components/Archive'
+import Article from './components/Article'
 import Footer from './components/Footer'
 import RouteScroll from './components/RouteScroll'
 
@@ -11,7 +12,9 @@ const App = () => (
     <Navbar />
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/notes/:slug" element={<Writeup />} />
+      <Route path="/writeups" element={<Archive type="writeup" />} />
+      <Route path="/notes" element={<Archive type="note" />} />
+      <Route path="/notes/:slug" element={<Article />} />
     </Routes>
     <Footer />
   </div>

@@ -7,7 +7,7 @@ import { compile } from '@mdx-js/mdx'
 import remarkFrontmatter from 'remark-frontmatter'
 import { metadata, prepare } from './content.mjs'
 
-const valid = { title: 'Fixture', description: 'Test fixture only', date: '2026-09-09', status: 'published' }
+const valid = { title: 'Fixture', description: 'Test fixture only', date: '2026-09-09', status: 'published', type: 'writeup' }
 const markdown = (extra = {}, body = '# Fixture\n\n**bold** and *emphasis*.\n\n- item\n\n1. item\n\n> quote\n\n[link](https://example.com)\n\n```sh\necho test\n```') => `---\n${Object.entries({ ...valid, ...extra }).map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n')}\n---\n${body}`
 
 test('metadata enforces category, dates, required fields and URL-safe slugs', () => {
@@ -17,6 +17,15 @@ test('metadata enforces category, dates, required fields and URL-safe slugs', ()
     assert.throws(() => metadata({ ...valid, ...extra }, 'research/test.md'), /research\/test.md:/)
   }
   assert.throws(() => metadata(valid, 'other/test.md'), /unsupported category/)
+})
+
+test('metadata accepts supported content types and rejects missing or invalid types', () => {
+  assert.equal(metadata(valid, 'tryhackme/writeup.md').type, 'writeup')
+  assert.equal(metadata({ ...valid, type: 'note' }, 'research/note.md').type, 'note')
+  const missingType = { ...valid }
+  delete missingType.type
+  assert.throws(() => metadata(missingType, 'research/missing.md'), /type is required and must be writeup or note/)
+  assert.throws(() => metadata({ ...valid, type: 'article' }, 'research/invalid.md'), /type is required and must be writeup or note/)
 })
 
 test('preparation handles empty content, drafts, images, Markdown and failures', async () => {

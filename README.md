@@ -36,11 +36,15 @@ Required YAML frontmatter fields:
 - `description`: non-empty string
 - `date`: calendar date in `YYYY-MM-DD` form (quote it for clarity)
 - `status`: `draft` or `published`
+- `type`: `writeup` or `note`
 
 Optional `slug` must use lowercase letters/numbers separated by hyphens.
 Otherwise it is derived from the containing directory for `index.md`, or the
 filename for other notes. Slugs must be unique across all notes, including drafts.
-Category comes from the top-level directory; an optional category field must match.
+Type describes the publication format: `writeup` is for hands-on lab and
+penetration-testing work, while `note` is for original technical explanations,
+security concepts, research, and experiments. Category remains independent of
+type and comes from the top-level directory; an optional category field must match.
 Metadata errors identify the exact source path. Draft metadata is validated, but
 draft bodies and assets are excluded. Zero published notes is valid.
 
@@ -58,6 +62,17 @@ HTTP(S) images remain external. Repository symlinks are unsupported.
 Publish genuine work by committing and pushing the note and images to the content
 repository, then manually trigger a website build. Website source edits are not
 needed for individual notes. Automatic rebuild hooks are not configured yet.
+
+## Routes
+
+- `/`: combined recent content, sorted newest first
+- `/writeups`: published entries with `type: writeup`
+- `/notes`: published entries with `type: note`
+- `/notes/:slug`: shared article route for both publication types
+
+The shared article URL is intentionally independent of publication type. Existing
+links such as `/notes/pickle-rick` remain stable, and both types use the same
+Markdown renderer and table of contents.
 
 ## Generated files
 

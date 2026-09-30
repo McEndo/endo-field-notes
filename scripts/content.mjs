@@ -10,6 +10,7 @@ const exec = promisify(execFile)
 const root = fileURLToPath(new URL('../', import.meta.url))
 const cache = path.join(root, '.content')
 const categories = new Set(['tryhackme', 'research', 'security-concepts'])
+const types = new Set(['writeup', 'note'])
 const images = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.svg'])
 const parser = createProcessor({ format: 'md' })
 const fail = (file, message) => { throw new Error(`${file}: ${message}`) }
@@ -30,6 +31,7 @@ export function metadata(data, file) {
   for (const key of ['title', 'description', 'status']) {
     if (typeof data[key] !== 'string' || !data[key].trim()) fail(file, `${key} is required and must be a non-empty string`)
   }
+  if (typeof data.type !== 'string' || !types.has(data.type)) fail(file, 'type is required and must be writeup or note')
   if (!['draft', 'published'].includes(data.status)) fail(file, 'status must be draft or published')
   // YAML may parse an unquoted ISO date as a Date.
   const date = data.date instanceof Date ? data.date.toISOString().slice(0, 10) : data.date
@@ -39,7 +41,7 @@ export function metadata(data, file) {
   const derived = basename.toLowerCase() === 'index' ? path.posix.basename(path.posix.dirname(file)) : basename
   const slug = data.slug ?? derived.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
   if (typeof slug !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) fail(file, 'slug must contain lowercase letters/numbers separated by hyphens')
-  return { title: data.title.trim(), description: data.description.trim(), date, status: data.status, slug, category }
+  return { title: data.title.trim(), description: data.description.trim(), date, status: data.status, type: data.type, slug, category }
 }
 
 async function walk(directory, relative = '') {
