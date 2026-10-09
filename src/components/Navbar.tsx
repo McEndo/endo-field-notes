@@ -121,8 +121,12 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
 
           <button
+            ref={menuButton}
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
             className="font-mono text-[10px] tracking-[0.2em] text-white/50 transition hover:text-white md:hidden"
           >
             {menuOpen ? 'CLOSE' : 'MENU'}
@@ -133,6 +137,9 @@ const Navbar = () => {
       {/* Mobile Menu */}
 
       <div
+        id="mobile-navigation"
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
         className={`fixed inset-0 z-40 bg-[#050505] transition-opacity duration-300 md:hidden ${
           menuOpen
             ? 'pointer-events-auto opacity-100'

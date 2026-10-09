@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node scripts/content.mjs --check && vite",
     "content:sync": "node scripts/content.mjs",
+    "test": "node --test scripts/*.test.mjs",
     "build": "npm run content:sync && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
