@@ -14,7 +14,7 @@ const Home = () => (
         <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .45 }} className="mt-8 max-w-xl text-sm leading-7 text-white/45 sm:text-base">A record of hands-on labs, security concepts, projects, technical experiments, and things learned along the way.</motion.p>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .55 }} className="mt-10 flex items-center gap-8">
           <Link to="/#recent" className="border border-white/30 px-6 py-3.5 text-[9px] tracking-[.2em] text-white/70 transition hover:border-white hover:bg-white hover:text-black sm:px-7 sm:py-4 sm:text-[10px]">BROWSE CONTENT <span className="ml-5">→</span></Link>
-          <a href="https://endo-portfolio-test.netlify.app/" className="border-b border-sky-400 pb-2 text-[9px] tracking-[.2em] text-white/60 transition hover:text-white sm:text-[10px]">MAIN PORTFOLIO</a>
+          <a href="https://mcendo.dev/" className="border-b border-sky-400 pb-2 text-[9px] tracking-[.2em] text-white/60 transition hover:text-white sm:text-[10px]">MAIN PORTFOLIO</a>
         </motion.div>
       </div>
     </section>

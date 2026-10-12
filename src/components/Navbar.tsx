@@ -77,7 +77,7 @@ const Navbar = () => {
           {/* Logo */}
 
           <a
-            href="https://endo-portfolio-test.netlify.app/"
+            href="https://mcendo.dev/"
             onClick={closeMenu}
             className="relative z-50 inline-flex items-center gap-2 text-xl font-semibold tracking-[-0.03em]"
           >
