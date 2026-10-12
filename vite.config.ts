@@ -6,7 +6,7 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkToc from './scripts/remark-toc.mjs'
 
 export default defineConfig({
-  publicDir: '.content/current/public',
+  publicDir: 'public',
   plugins: [
     mdx({
       format: 'md',
